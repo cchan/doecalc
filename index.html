@@ -40,8 +40,8 @@ var questions = [
 		eval: function(n1, n2){return n1 * n1 * n2;},
 		n1: [1,10], n2: [1,10]
 	},{
-		str: ["What is the kinetic energy of an object of mass {n1} kg moving at {n2} meters per second?",
-			"What is the moment of inertia around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
+		str: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} meters per second?",
+			"What is the moment of inertia in kg*m<sup>2</sup> around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
 		eval: function(n1, n2){return 0.5 * n1 * n2 * n2;},
 		n1: [1,10], n2: [1,10], n3: [1,10]
 	}
@@ -58,13 +58,16 @@ function getParamNames(func) {
   return result;
 }
 
+// to add - make it an enclosed, re-callable object (no refreshes anymore) and make a timer (and leaderboard)
+	//no more alerts - make the textbox flash green or red
+
 var q = questions[Math.floor(Math.random() * questions.length)];
 var args = [];
 var qtext = q.str[Math.floor(Math.random() * q.str.length)];
 var paramnames = getParamNames(q.eval);
 var k = 0;
 for(var argname of paramnames)
-	qtext = qtext.replace("{"+argname+"}",args[k++] = Math.floor(q[argname][0] + q[argname][1] * Math.random()));
+	qtext = qtext.replace("{"+argname+"}",args[k++] = Math.floor(q[argname][0] + (q[argname][1] - q[argname][0] + 1) * Math.random()));
 var ans = q.eval.apply(this, args); //*******************how do I feed the parameters like in php?*********************//
 document.getElementById("qdisplay").innerHTML=qtext;
 document.getElementById("qanswer").focus();
