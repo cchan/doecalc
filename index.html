@@ -1,7 +1,9 @@
-<h1>SciBowl Physics Calculation Engine</h1>
+<h1 style="margin-bottom:0px">SciBowl Physics Calculation Practice</h1>
+<p style="font-size:0.7em;">Assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>.</p>
 
-<p id="qdisplay"></p>
-<input id="qanswer" />
+<p id="qdisplay" style="margin-top: 1em;"></p>
+<p><input id="qanswer" /><p>
+<p><button id="qgiveup">Give Up</button><p>
 
 <script>
 var questions = [
@@ -30,7 +32,7 @@ var questions = [
 		n1: [1,10], n2: [1,10]
 	},{
 		str: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?",
-			"What is the centripetal acceleration of an object moving around a circle of radius {n2} at a velocity of {n1} meters per second?"],
+			"What is the centripetal acceleration of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
 		eval: function(n1, n2){return n1 * n1 / n2;},
 		n1: [1,10], n2: [1,10]
 	},{
@@ -40,35 +42,72 @@ var questions = [
 		eval: function(n1, n2){return n1 * n1 * n2;},
 		n1: [1,10], n2: [1,10]
 	},{
-		str: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} meters per second?",
+		str: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} m/s?",
 			"What is the moment of inertia in kg*m<sup>2</sup> around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
-		eval: function(n1, n2){return 0.5 * n1 * n2 * n2;},
+		eval: function(n1, n2, n3){return 0.5 * n1 * n2 * n2;},
 		n1: [1,10], n2: [1,10], n3: [1,10]
-	}
+	},{
+		str: ["What is the gravitational potential energy with respect to the ground of a {n1} kg object {n2} meters above the ground?"],
+		eval: function(n1, n2){return 9.8 * n1 * n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the speed of a {n1} kg object after falling {n2} meters from rest?"],
+		eval: function(n1, n2){return sqrt(2 * 9.8 * n2);},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["How long does it take for an object of mass {n1} kg to fall {n2} meters?"],
+		eval: function(n1, n2){return sqrt(n2 / (9.8 * 0.5));},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["How many meters does an object of mass {n1} kg fall in {n2} seconds?"],
+		eval: function(n1, n2){return 0.5 * 9.8 * n2 * n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What force of friction is exerted on a sliding {n2} N object given that the coefficient of kinetic friction 0.{n1}?"],
+		eval: function(n1, n2){return n1 * n2 / 10;},
+		n1: [1,9], n2: [1,10]
+	},{
+		str: ["What is the power of an engine exerting a constant {n1},000 N on a car moving at {n2} m/s?"],
+		eval: function(n1, n2){return n1*n2*1000;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the force required to keep an object of mass {n1} kg moving at a velocity of {n2} m/s in a circle of radius {n3} meters?"],
+		eval: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
+		n1: [1,10], n2: [1,10], n3: [1,10]
+	}/*,{
+		str: ["0"],
+		eval: function(n1, n2){return 0;},
+		n1: [1,10], n2: [1,10]
+	}*/
 ];
 
+function sqrt(x){ //for eval
+	return Math.sqrt(x);
+}
 
-var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-var ARGUMENT_NAMES = /([^\s,]+)/g;
+
 function getParamNames(func) {
-  var fnStr = func.toString().replace(STRIP_COMMENTS, '');
-  var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
-  if(result === null)
-     result = [];
-  return result;
+	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+	var ARGUMENT_NAMES = /([^\s,]+)/g;
+	var fnStr = func.toString().replace(STRIP_COMMENTS, '');
+	var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
+	if(result === null)
+		result = [];
+	return result;
 }
 
 // to add - make it an enclosed, re-callable object (no refreshes anymore) and make a timer (and leaderboard)
 	//no more alerts - make the textbox flash green or red
 
 var q = questions[Math.floor(Math.random() * questions.length)];
+
+
 var args = [];
 var qtext = q.str[Math.floor(Math.random() * q.str.length)];
 var paramnames = getParamNames(q.eval);
-var k = 0;
 for(var argname of paramnames)
-	qtext = qtext.replace("{"+argname+"}",args[k++] = Math.floor(q[argname][0] + (q[argname][1] - q[argname][0] + 1) * Math.random()));
-var ans = q.eval.apply(this, args); //*******************how do I feed the parameters like in php?*********************//
+	qtext = qtext.replace("{"+argname+"}",args[args.length] = Math.floor(q[argname][0] + (q[argname][1] - q[argname][0] + 1) * Math.random()));
+var ans = q.eval.apply(this, args);
 document.getElementById("qdisplay").innerHTML=qtext;
 document.getElementById("qanswer").focus();
 window.onkeypress=function(e){
@@ -77,13 +116,18 @@ window.onkeypress=function(e){
 document.getElementById("qanswer").onkeypress=function(e){
 	if(e.keyCode==13){
 		if(eval(this.value) == eval(ans)){
-			alert("correct");
+			alert("CORRECT");
 			window.location.reload();
 		}else{
-			alert("incorrect");
+			alert("INCORRECT");
 			this.value="";
 		}
 	}
 };
+document.getElementById("qgiveup").onclick=function(e){
+	alert("The correct answer is "+ans+".");
+	window.location.reload();
+};
+
 
 </script>
