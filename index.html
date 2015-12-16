@@ -1,0 +1,86 @@
+<h1>SciBowl Physics Calculation Engine</h1>
+
+<p id="qdisplay"></p>
+<input id="qanswer" />
+
+<script>
+var questions = [
+	{
+		str: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in series?",
+			"What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?"],
+		eval: function(n1, n2){return n1 * n2 / (n1 + n2);},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in parallel?",
+			"What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in series?"],
+		eval: function(n1, n2){return n1 + n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the voltage in volts across a resistor of {n1} ohms with {n2} amperes flowing across it?",
+			"What is the electromotive force in volts driving {n1} amperes through a circuit if its total resistance is {n2} ohms?",
+			"What is the power in watts dissipated by a resistor when {n1} volts drive {n2} amperes of current through it?"],
+		eval: function(n1, n2){return n1 * n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the resistance in ohms of a circuit if {n1} volts drives {n2} amperes through the circuit?",
+			"What is the current in amperes through a resistor of {n2} ohms when a voltage of {n1} volts is placed across it?",
+			"What is the voltage in volts necessary to dissipate {n1} watts with a current of {n2} amperes?",
+			"What is the current in amperes flowing through a circuit connected to a battery of {n2} volts when it is dissipating {n1} watts of power?"],
+		eval: function(n1, n2){return n1 / n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?",
+			"What is the centripetal acceleration of an object moving around a circle of radius {n2} at a velocity of {n1} meters per second?"],
+		eval: function(n1, n2){return n1 * n1 / n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the power in watts dissipated if {n1} amps are flowing through a resistor of {n2} ohms?",
+			"What is the centripetal acceleration of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
+			"What is the moment of inertia of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
+		eval: function(n1, n2){return n1 * n1 * n2;},
+		n1: [1,10], n2: [1,10]
+	},{
+		str: ["What is the kinetic energy of an object of mass {n1} kg moving at {n2} meters per second?",
+			"What is the moment of inertia around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
+		eval: function(n1, n2){return 0.5 * n1 * n2 * n2;},
+		n1: [1,10], n2: [1,10], n3: [1,10]
+	}
+];
+
+
+var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+var ARGUMENT_NAMES = /([^\s,]+)/g;
+function getParamNames(func) {
+  var fnStr = func.toString().replace(STRIP_COMMENTS, '');
+  var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
+  if(result === null)
+     result = [];
+  return result;
+}
+
+var q = questions[Math.floor(Math.random() * questions.length)];
+var args = [];
+var qtext = q.str[Math.floor(Math.random() * q.str.length)];
+var paramnames = getParamNames(q.eval);
+var k = 0;
+for(var argname of paramnames)
+	qtext = qtext.replace("{"+argname+"}",args[k++] = Math.floor(q[argname][0] + q[argname][1] * Math.random()));
+var ans = q.eval.apply(this, args); //*******************how do I feed the parameters like in php?*********************//
+document.getElementById("qdisplay").innerHTML=qtext;
+document.getElementById("qanswer").focus();
+window.onkeypress=function(e){
+	document.getElementById("qanswer").focus();
+};
+document.getElementById("qanswer").onkeypress=function(e){
+	if(e.keyCode==13){
+		if(eval(this.value) == eval(ans)){
+			alert("correct");
+			window.location.reload();
+		}else{
+			alert("incorrect");
+			this.value="";
+		}
+	}
+};
+
+</script>
