@@ -83,9 +83,6 @@ var questions = [
 
 
 (function(Questioner, questions, display, ansform, ansbox, giveupbtn, undefined){
-	if(Questioner===undefined)
-		Questioner = {};
-	
 	function getParamNames(func) {
 		var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 		var ARGUMENT_NAMES = /([^\s,]+)/g;
@@ -155,7 +152,7 @@ var questions = [
 	giveupbtn.onclick=Questioner.giveup;
 	
 	Questioner.loadNext();
-})(window.Questioner, questions, document.getElementById("qdisplay"), document.getElementById("qanswerform"), document.getElementById("qanswer"), document.getElementById("qgiveup"));
+})(window.Questioner = window.Questioner || {}, questions, document.getElementById("qdisplay"), document.getElementById("qanswerform"), document.getElementById("qanswer"), document.getElementById("qgiveup"));
 
 
 // to add
