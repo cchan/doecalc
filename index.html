@@ -2,7 +2,7 @@
 <p style="font-size:0.8em;font-style:italic;">Always assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>.</p>
 
 <p id="qdisplay" style="margin-top: 1em;"></p>
-<form id="qanswerform"><input id="qanswer" /></form>
+<form id="qanswerform"><input id="qanswer"><input type="submit" value="Submit"></form>
 <p><button id="qgiveup">Give Up</button><p>
 
 <script>
@@ -124,14 +124,25 @@ var questions = [
 		ansbox.focus();
 	};
 	Questioner.check = function(e){
-		if(eval(ansbox.value) == ANSWER){
-			alert("CORRECT");
-			ansbox.value = "";
-			Questioner.loadNext();
-		}else{
-			alert("INCORRECT");
-			ansbox.value = "";
+		var evaled = "";
+		var done = false;
+		try{
+			evaled = eval(ansbox.value);
 		}
+		catch(e){
+			alert("INCORRECT - error reading your answer of '"+ansbox.value+"'");
+			done = true;
+		}
+		if(!done){
+			if(evaled == ANSWER){
+				alert(ansbox.value + " is CORRECT");
+				Questioner.loadNext();
+			}else{
+				alert(ansbox.value + " is INCORRECT");
+			}
+		}
+		
+		ansbox.value = "";
 		
 		if(!e)var e=window.event;
 		e.preventDefault();
