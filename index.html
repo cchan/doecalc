@@ -2,7 +2,7 @@
 <p style="font-size:0.8em;font-style:italic;">Always assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>.</p>
 
 <p id="qdisplay" style="margin-top: 1em;"></p>
-<form id="qanswerform"><input id="qanswer"><input type="submit" value="Submit"></form>
+<form id="qanswerform" autocomplete="off"><input id="qanswer"><input type="submit" value="Submit"></form>
 <p><button id="qgiveup">Give Up</button><p>
 
 <script>
@@ -75,6 +75,14 @@ var questions = [
 		ans: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
 		n1: [1,10], n2: [1,10], n3: [1,10]
 	}/*,{
+		strs: ["0"],
+		ans: function(n1, n2){return 0;},
+		n1: [1,10], n2: [1,10]
+	},{
+		strs: ["0"],
+		ans: function(n1, n2){return 0;},
+		n1: [1,10], n2: [1,10]
+	}*//*,{
 		strs: ["0"],
 		ans: function(n1, n2){return 0;},
 		n1: [1,10], n2: [1,10]
