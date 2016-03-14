@@ -32,19 +32,19 @@ var questions = [
 		n1: [1,10], n2: [1,10]
 	},{
 		strs: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?",
-			"What is the centripetal acceleration of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
+			"What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
 		ans: function(n1, n2){return n1 * n1 / n2;},
 		n1: [1,10], n2: [1,10]
 	},{
 		strs: ["What is the power in watts dissipated if {n1} amps are flowing through a resistor of {n2} ohms?",
-			"What is the centripetal acceleration of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
-			"What is the moment of inertia of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
+			"What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
+			"What is the moment of inertia in kg*m^2 of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
 		ans: function(n1, n2){return n1 * n1 * n2;},
 		n1: [1,10], n2: [1,10]
 	},{
 		strs: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} m/s?",
 			"What is the moment of inertia in kg&middot;m<sup>2</sup> around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
-		ans: function(n1, n2, n3){return 0.5 * n1 * n2 * n2;},
+		ans: function(n1, n2, n3){return n1 * n2 * n2 / 2;},
 		n1: [1,10], n2: [1,10], n3: [1,10]
 	},{
 		strs: ["What is the gravitational potential energy in joules with respect to the ground of a {n1} kg object {n2} meters above the ground?"],
@@ -74,16 +74,16 @@ var questions = [
 		strs: ["What is the force in newtons required to keep an object of mass {n1} kg moving at a velocity of {n2} m/s in a circle of radius {n3} meters?"],
 		ans: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
 		n1: [1,10], n2: [1,10], n3: [1,10]
+	},{
+		strs: ["What is the moment of inertia of a cylindrical shell of mass {n3} kg with inner radius {n1} meters and outer radius {n2} meters?"],
+		ans: function(n1, n2, n3){return n3 * (n1*n1 + n2*n2) / 2;},
+		n1: [1,5], n2: [6,10], n3: [1,10]
 	}/*,{
-		strs: ["0"],
+		strs: ["?"],
 		ans: function(n1, n2){return 0;},
 		n1: [1,10], n2: [1,10]
 	},{
-		strs: ["0"],
-		ans: function(n1, n2){return 0;},
-		n1: [1,10], n2: [1,10]
-	}*//*,{
-		strs: ["0"],
+		strs: ["?"],
 		ans: function(n1, n2){return 0;},
 		n1: [1,10], n2: [1,10]
 	}*/
@@ -135,7 +135,9 @@ var questions = [
 		var evaled = "";
 		var done = false;
 		try{
-			evaled = eval(ansbox.value);
+			evaled = (function(ANSWER, Questioner, window){
+				return eval(ansbox.value);
+			})();
 		}
 		catch(e){
 			alert("INCORRECT - error reading your answer of '"+ansbox.value+"'");
