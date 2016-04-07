@@ -63,7 +63,7 @@ var questions = [
     ans: function(n1, n2){return 0.5 * 9.8 * n2 * n2;},
     n1: [1,10], n2: [1,10]
   },{
-    strs: ["What force of friction in newtons is exerted on a sliding {n2} N object given that the coefficient of kinetic friction 0.{n1}?"],
+    strs: ["What force of friction in newtons is exerted on a sliding {n2} N object given that the coefficient of kinetic friction is 0.{n1}?"],
     ans: function(n1, n2){return n1 * n2 / 10;},
     n1: [1,9], n2: [1,10]
   },{
@@ -75,7 +75,7 @@ var questions = [
     ans: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
     n1: [1,10], n2: [1,10], n3: [1,10]
   },{
-    strs: ["What is the moment of inertia of a cylindrical shell of mass {n3} kg with inner radius {n1} meters and outer radius {n2} meters?"],
+    strs: ["What is the moment of inertia of a thick cylindrical shell of mass {n3} kg with inner radius {n1} meters and outer radius {n2} meters?"],
     ans: function(n1, n2, n3){return n3 * (n1*n1 + n2*n2) / 2;},
     n1: [1,5], n2: [6,10], n3: [1,10]
   },*/{
@@ -88,7 +88,7 @@ var questions = [
       
       return {
         n1: q1 * q2,
-        n2: q1 * p2 + q2 * p1,
+        n2:  - q1 * p2 - q2 * p1,
         n3: p1 * p2,
         ans: Math.max(p1/q1, p2/q2)
       };
