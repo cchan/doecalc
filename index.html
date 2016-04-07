@@ -7,177 +7,211 @@
 
 <script>
 var questions = [
-	{
-		strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in series?",
-			"What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?"],
-		ans: function(n1, n2){return n1 * n2 / (n1 + n2);},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in parallel?",
-			"What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in series?"],
-		ans: function(n1, n2){return n1 + n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the voltage in volts across a resistor of {n1} ohms with {n2} amperes flowing across it?",
-			"What is the electromotive force in volts driving {n1} amperes through a circuit if its total resistance is {n2} ohms?",
-			"What is the power in watts dissipated by a resistor when {n1} volts drive {n2} amperes of current through it?"],
-		ans: function(n1, n2){return n1 * n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the resistance in ohms of a circuit if {n1} volts drives {n2} amperes through the circuit?",
-			"What is the current in amperes through a resistor of {n2} ohms when a voltage of {n1} volts is placed across it?",
-			"What is the voltage in volts necessary to dissipate {n1} watts with a current of {n2} amperes?",
-			"What is the current in amperes flowing through a circuit connected to a battery of {n2} volts when it is dissipating {n1} watts of power?"],
-		ans: function(n1, n2){return n1 / n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?",
-			"What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
-		ans: function(n1, n2){return n1 * n1 / n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the power in watts dissipated if {n1} amps are flowing through a resistor of {n2} ohms?",
-			"What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
-			"What is the moment of inertia in kg*m^2 of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
-		ans: function(n1, n2){return n1 * n1 * n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} m/s?",
-			"What is the moment of inertia in kg&middot;m<sup>2</sup> around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
-		ans: function(n1, n2, n3){return n1 * n2 * n2 / 2;},
-		n1: [1,10], n2: [1,10], n3: [1,10]
-	},{
-		strs: ["What is the gravitational potential energy in joules with respect to the ground of a {n1} kg object {n2} meters above the ground?"],
-		ans: function(n1, n2){return 9.8 * n1 * n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the speed in meters per second of a {n1} kg object after falling {n2} meters from rest?"],
-		ans: function(n1, n2){return sqrt(2 * 9.8 * n2);},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["How long in seconds does it take for an object of mass {n1} kg to fall {n2} meters?"],
-		ans: function(n1, n2){return sqrt(n2 / (9.8 * 0.5));},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["How many meters does an object of mass {n1} kg fall in {n2} seconds?"],
-		ans: function(n1, n2){return 0.5 * 9.8 * n2 * n2;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What force of friction in newtons is exerted on a sliding {n2} N object given that the coefficient of kinetic friction 0.{n1}?"],
-		ans: function(n1, n2){return n1 * n2 / 10;},
-		n1: [1,9], n2: [1,10]
-	},{
-		strs: ["What is the power in watts of an engine exerting a constant {n1},000 N on a car moving at {n2} m/s?"],
-		ans: function(n1, n2){return n1*n2*1000;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["What is the force in newtons required to keep an object of mass {n1} kg moving at a velocity of {n2} m/s in a circle of radius {n3} meters?"],
-		ans: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
-		n1: [1,10], n2: [1,10], n3: [1,10]
-	},{
-		strs: ["What is the moment of inertia of a cylindrical shell of mass {n3} kg with inner radius {n1} meters and outer radius {n2} meters?"],
-		ans: function(n1, n2, n3){return n3 * (n1*n1 + n2*n2) / 2;},
-		n1: [1,5], n2: [6,10], n3: [1,10]
-	}/*,{
-		strs: ["?"],
-		ans: function(n1, n2){return 0;},
-		n1: [1,10], n2: [1,10]
-	},{
-		strs: ["?"],
-		ans: function(n1, n2){return 0;},
-		n1: [1,10], n2: [1,10]
-	}*/
+  /*{
+    strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in series?",
+      "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?"],
+    ans: function(n1, n2){return n1 * n2 / (n1 + n2);},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in parallel?",
+      "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in series?"],
+    ans: function(n1, n2){return n1 + n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the voltage in volts across a resistor of {n1} ohms with {n2} amperes flowing across it?",
+      "What is the electromotive force in volts driving {n1} amperes through a circuit if its total resistance is {n2} ohms?",
+      "What is the power in watts dissipated by a resistor when {n1} volts drive {n2} amperes of current through it?"],
+    ans: function(n1, n2){return n1 * n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the resistance in ohms of a circuit if {n1} volts drives {n2} amperes through the circuit?",
+      "What is the current in amperes through a resistor of {n2} ohms when a voltage of {n1} volts is placed across it?",
+      "What is the voltage in volts necessary to dissipate {n1} watts with a current of {n2} amperes?",
+      "What is the current in amperes flowing through a circuit connected to a battery of {n2} volts when it is dissipating {n1} watts of power?"],
+    ans: function(n1, n2){return n1 / n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?",
+      "What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
+    ans: function(n1, n2){return n1 * n1 / n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the power in watts dissipated if {n1} amps are flowing through a resistor of {n2} ohms?",
+      "What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
+      "What is the moment of inertia in kg*m^2 of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
+    ans: function(n1, n2){return n1 * n1 * n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} m/s?",
+      "What is the moment of inertia in kg&middot;m<sup>2</sup> around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
+    ans: function(n1, n2, n3){return n1 * n2 * n2 / 2;},
+    n1: [1,10], n2: [1,10], n3: [1,10]
+  },{
+    strs: ["What is the gravitational potential energy in joules with respect to the ground of a {n1} kg object {n2} meters above the ground?"],
+    ans: function(n1, n2){return 9.8 * n1 * n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the speed in meters per second of a {n1} kg object after falling {n2} meters from rest?"],
+    ans: function(n1, n2){return sqrt(2 * 9.8 * n2);},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["How long in seconds does it take for an object of mass {n1} kg to fall {n2} meters?"],
+    ans: function(n1, n2){return sqrt(n2 / (9.8 * 0.5));},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["How many meters does an object of mass {n1} kg fall in {n2} seconds?"],
+    ans: function(n1, n2){return 0.5 * 9.8 * n2 * n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What force of friction in newtons is exerted on a sliding {n2} N object given that the coefficient of kinetic friction 0.{n1}?"],
+    ans: function(n1, n2){return n1 * n2 / 10;},
+    n1: [1,9], n2: [1,10]
+  },{
+    strs: ["What is the power in watts of an engine exerting a constant {n1},000 N on a car moving at {n2} m/s?"],
+    ans: function(n1, n2){return n1*n2*1000;},
+    n1: [1,10], n2: [1,10]
+  },{
+    strs: ["What is the force in newtons required to keep an object of mass {n1} kg moving at a velocity of {n2} m/s in a circle of radius {n3} meters?"],
+    ans: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
+    n1: [1,10], n2: [1,10], n3: [1,10]
+  },{
+    strs: ["What is the moment of inertia of a cylindrical shell of mass {n3} kg with inner radius {n1} meters and outer radius {n2} meters?"],
+    ans: function(n1, n2, n3){return n3 * (n1*n1 + n2*n2) / 2;},
+    n1: [1,5], n2: [6,10], n3: [1,10]
+  },*/{
+    strs: ["Find the larger root of the quadratic {n1}x<sup>2</sup> + {n2}x + {n3}."],
+    init: function(){
+      var p1 = rand(-10,10,[0]),//r = p/q, (qx - p) = 0
+          q1 = rand(-10,10,[0]),
+          p2 = rand(-10,10,[0]),
+          q2 = rand(-10,10,[0]);
+      
+      return {
+        n1: q1 * q2,
+        n2: q1 * p2 + q2 * p1,
+        n3: p1 * p2,
+        ans: Math.max(p1/q1, p2/q2)
+      };
+    },
+  }/*,{
+    strs: ["?"],
+    ans: function(n1, n2){return 0;},
+    n1: [1,10], n2: [1,10]
+  }*//*,{
+    strs: ["?"],
+    ans: function(n1, n2){return 0;},
+    n1: [1,10], n2: [1,10]
+  }*/
 ];
 
 
+function sqrt(x){ //for eval
+  return Math.sqrt(x);
+}
+function rand(a,b,exclude){//inclusive
+  if(typeof exclude != "object")
+    exclude = [];
+  var rand;
+  do{
+    rand = Math.floor(a+(b-a+1)*Math.random());
+  }while(exclude.indexOf(rand) != -1);
+  return rand;
+}
+function getParamNames(func) {
+  var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+  var ARGUMENT_NAMES = /([^\s,]+)/g;
+  var fnStr = func.toString().replace(STRIP_COMMENTS, '');
+  var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
+  if(result === null)
+    result = [];
+  return result;
+}
+
 (function(Questioner, questions, display, ansform, ansbox, giveupbtn, undefined){
-	function getParamNames(func) {
-		var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-		var ARGUMENT_NAMES = /([^\s,]+)/g;
-		var fnStr = func.toString().replace(STRIP_COMMENTS, '');
-		var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
-		if(result === null)
-			result = [];
-		return result;
-	}
-	function sqrt(x){ //for eval
-		return Math.sqrt(x);
-	}
-	function randQuestionIndices(){
-		var totalSize = 0;
-		for(var i = 0; i < questions.length; i++)
-			totalSize+=questions[i].strs.length;
-		var totalIndex = Math.floor(Math.random()*totalSize);
-		for(var i = 0; i < questions.length; i++)
-			if(totalIndex >= questions[i].strs.length)totalIndex -= questions[i].strs.length;
-			else return [i,totalIndex];
-	}
-	
-	var ANSWER;
-	Questioner.loadNext = function(){
-		var inds = randQuestionIndices();
-		var q = questions[inds[0]];
-		
-		var argsToAns = [];
-		var qtext = q.strs[inds[1]];
-		var paramnames = getParamNames(q.ans);
-		for(var argname of paramnames){
-			var randarg = Math.floor(q[argname][0] + (q[argname][1] - q[argname][0] + 1) * Math.random());
-			argsToAns[argsToAns.length] = randarg;
-			qtext = qtext.replace("{"+argname+"}",  randarg);
-		}
-		ANSWER = q.ans.apply(this, argsToAns);
-		
-		display.innerHTML = qtext;
-		ansbox.focus();
-	};
-	Questioner.check = function(e){
-		var evaled = "";
-		var done = false;
-		try{
-			evaled = (function(ANSWER, Questioner, window){
-				return eval(ansbox.value);
-			})();
-		}
-		catch(e){
-			alert("INCORRECT - error reading your answer of '"+ansbox.value+"'");
-			done = true;
-		}
-		if(!done){
-			if(evaled == ANSWER){
-				alert(ansbox.value + " is CORRECT");
-				Questioner.loadNext();
-			}else{
-				alert(ansbox.value + " is INCORRECT");
-			}
-		}
-		
-		ansbox.value = "";
-		
-		if(!e)var e=window.event;
-		e.preventDefault();
-		return false;
-	};
-	Questioner.giveup = function(e){
-		alert("The correct answer is " + ANSWER + ".");
-		ansbox.value = "";
-		Questioner.loadNext();
-		
-		if(!e)var e=window.event;
-		e.preventDefault();
-		return false;
-	};
-	
-	window.onkeypress = ansbox.focus;
-	ansform.onsubmit=Questioner.check;
-	giveupbtn.onclick=Questioner.giveup;
-	
-	Questioner.loadNext();
+  function randQuestionIndices(){
+    var totalSize = 0;
+    for(var i = 0; i < questions.length; i++)
+      totalSize+=questions[i].strs.length;
+    var totalIndex = Math.floor(Math.random()*totalSize);
+    for(var i = 0; i < questions.length; i++)
+      if(totalIndex >= questions[i].strs.length)totalIndex -= questions[i].strs.length;
+      else return [i,totalIndex];
+  }
+  
+  var ANSWER;
+  Questioner.loadNext = function(){
+    var inds = randQuestionIndices();
+    var q = questions[inds[0]];
+    var qtext = q.strs[inds[1]];
+    
+    if(typeof q.init === "function"){
+      var dict = q.init();
+      for(var argname in dict)
+        if(argname != "ans")
+          qtext = qtext.replace("{"+argname+"}", dict[argname]);
+      ANSWER = dict.ans;
+    }
+    else{
+      var argsToAns = [];
+      var paramnames = getParamNames(q.ans);
+      for(var argname of paramnames){
+        var randarg = rand(q[argname][0],q[argname][1]);
+        argsToAns[argsToAns.length] = randarg;
+        qtext = qtext.replace("{"+argname+"}",  randarg);
+      }
+      ANSWER = q.ans.apply(this, argsToAns);
+    }
+    
+    display.innerHTML = qtext;
+    ansbox.focus();
+  };
+  Questioner.check = function(e){
+    var evaled = "";
+    var done = false;
+    try{
+      evaled = (function(ANSWER, Questioner, window){
+        return eval(ansbox.value);
+      })();
+    }
+    catch(e){
+      alert("INCORRECT - error reading your answer of '"+ansbox.value+"'");
+      done = true;
+    }
+    if(!done){
+      if(evaled == ANSWER){
+        alert(ansbox.value + " is CORRECT");
+        Questioner.loadNext();
+      }else{
+        alert(ansbox.value + " is INCORRECT");
+      }
+    }
+    
+    ansbox.value = "";
+    
+    if(!e)var e=window.event;
+    e.preventDefault();
+    return false;
+  };
+  Questioner.giveup = function(e){
+    alert("The correct answer is " + ANSWER + ".");
+    ansbox.value = "";
+    Questioner.loadNext();
+    
+    if(!e)var e=window.event;
+    e.preventDefault();
+    return false;
+  };
+  
+  window.onkeypress = ansbox.focus;
+  ansform.onsubmit=Questioner.check;
+  giveupbtn.onclick=Questioner.giveup;
+  
+  Questioner.loadNext();
 })(window.Questioner = window.Questioner || {}, questions, document.getElementById("qdisplay"), document.getElementById("qanswerform"), document.getElementById("qanswer"), document.getElementById("qgiveup"));
 
 
 // to add
-	//make a timer (and leaderboard)
-	//no more alerts - make the textbox flash green or red
+  //make a timer (and leaderboard)
+  //no more alerts - make the textbox flash green or red
 
 </script>
