@@ -1,13 +1,19 @@
 <h1 style="margin-bottom:0px">SciBowl Physics Calculation Practice</h1>
+<h2 id="filter" style="font-weight: normal;"></h2>
 <p style="font-size:0.8em;font-style:italic;">Always assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>.</p>
 
 <p id="qdisplay" style="margin-top: 1em;"></p>
 <form id="qanswerform" autocomplete="off"><input id="qanswer"><input type="submit" value="Submit"></form>
 <p><button id="qgiveup">Give Up</button><p>
 
+<div>
+<h2>Tags</h2>
+<ul id="taglist"><li><a href="?">[none]</a></li></ul>
+</div>
+
 <script>
 var questions = [
-  /*{
+  {
     tags: ["circuits"],
     strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in series?",
       "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?"],
@@ -117,8 +123,8 @@ var questions = [
         ans: Math.max(p1/q1, p2/q2)
       };
     },
-  },*/{
-    tags: ["trigfuncs"],
+  },{
+    tags: ["trig"],
     strs: ["Find the {func} of the angle {angle}."],
     init: function(){
       var funcs = ["sine", "cosine", "tangent", "secant", "cosecant", "cotangent"];
@@ -147,6 +153,66 @@ var questions = [
     n1: [1,10], n2: [1,10]
   }*/
 ];
+
+
+function arrayUnique(array) { //http://stackoverflow.com/a/1584377/1181387
+    var a = array.concat();
+    for(var i=0; i<a.length; ++i)
+        for(var j=i+1; j<a.length; ++j)
+            if(a[i] === a[j])
+                a.splice(j--, 1);
+    return a;
+}
+var allTags = [];
+for(var i in questions)
+  if(questions[i].hasOwnProperty("tags") && typeof questions[i].tags == "object")
+    allTags = allTags.concat(questions[i].tags);
+allTags = arrayUnique(allTags);
+allTags.sort();
+for(var i in allTags)
+  document.getElementById("taglist").innerHTML+="<li><a href='?filter="+allTags[i]+"'>"+allTags[i]+"</a></li>";
+
+
+
+//http://stackoverflow.com/a/979995/1181387
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+    return query_string;
+}();
+
+if(QueryString.hasOwnProperty("filter")){
+  console.log(QueryString["filter"]);
+  var newquestions = questions.filter(function(q){
+     return !q.hasOwnProperty("tags") || 
+            q["tags"].indexOf(QueryString["filter"]) != -1;
+  });
+  if(newquestions.length == 0)
+    alert("No questions with filter '"+QueryString["filter"]+"'.");
+  else{
+    questions = newquestions;
+    document.getElementById("filter").innerHTML = "(filter: <i>"+QueryString["filter"]+"</i>)";
+  }
+}
+
+
 
 function gcd(a,b){
   if(!b) return a;
