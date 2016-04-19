@@ -8,22 +8,26 @@
 <script>
 var questions = [
   /*{
+    tags: ["circuits"],
     strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in series?",
       "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?"],
     ans: function(n1, n2){return n1 * n2 / (n1 + n2);},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["circuits"],
     strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in parallel?",
       "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in series?"],
     ans: function(n1, n2){return n1 + n2;},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["circuits"],
     strs: ["What is the voltage in volts across a resistor of {n1} ohms with {n2} amperes flowing across it?",
       "What is the electromotive force in volts driving {n1} amperes through a circuit if its total resistance is {n2} ohms?",
       "What is the power in watts dissipated by a resistor when {n1} volts drive {n2} amperes of current through it?"],
     ans: function(n1, n2){return n1 * n2;},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["circuits"],
     strs: ["What is the resistance in ohms of a circuit if {n1} volts drives {n2} amperes through the circuit?",
       "What is the current in amperes through a resistor of {n2} ohms when a voltage of {n1} volts is placed across it?",
       "What is the voltage in volts necessary to dissipate {n1} watts with a current of {n2} amperes?",
@@ -31,54 +35,74 @@ var questions = [
     ans: function(n1, n2){return n1 / n2;},
     n1: [1,10], n2: [1,10]
   },{
-    strs: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?",
-      "What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
+    tags: ["circuits"],
+    strs: ["What is the power in watts dissipated if {n1} volts are placed across a resistor of {n2} ohms?"],
     ans: function(n1, n2){return n1 * n1 / n2;},
     n1: [1,10], n2: [1,10]
   },{
-    strs: ["What is the power in watts dissipated if {n1} amps are flowing through a resistor of {n2} ohms?",
-      "What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
+    tags: ["mechanics"],
+    strs: ["What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} at a velocity of {n1} m/s?"],
+    ans: function(n1, n2){return n1 * n1 / n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    tags: ["circuits"],
+    strs: ["What is the power in watts dissipated if {n1} amps are flowing through a resistor of {n2} ohms?"],
+    ans: function(n1, n2){return n1 * n1 * n2;},
+    n1: [1,10], n2: [1,10]
+  },{
+    tags: ["mechanics"],
+    strs: ["What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
       "What is the moment of inertia in kg*m^2 of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
     ans: function(n1, n2){return n1 * n1 * n2;},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What is the kinetic energy in joules of an object of mass {n1} kg moving at {n2} m/s?",
       "What is the moment of inertia in kg&middot;m<sup>2</sup> around the cylindrical axis of a cylinder of mass {n1} kg, radius {n2} meters, and height {n3} meters?"],
     ans: function(n1, n2, n3){return n1 * n2 * n2 / 2;},
     n1: [1,10], n2: [1,10], n3: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What is the gravitational potential energy in joules with respect to the ground of a {n1} kg object {n2} meters above the ground?"],
     ans: function(n1, n2){return 9.8 * n1 * n2;},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What is the speed in meters per second of a {n1} kg object after falling {n2} meters from rest?"],
     ans: function(n1, n2){return sqrt(2 * 9.8 * n2);},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["How long in seconds does it take for an object of mass {n1} kg to fall {n2} meters?"],
     ans: function(n1, n2){return sqrt(n2 / (9.8 * 0.5));},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["How many meters does an object of mass {n1} kg fall in {n2} seconds?"],
     ans: function(n1, n2){return 0.5 * 9.8 * n2 * n2;},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What force of friction in newtons is exerted on a sliding {n2} N object given that the coefficient of kinetic friction is 0.{n1}?"],
     ans: function(n1, n2){return n1 * n2 / 10;},
     n1: [1,9], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What is the power in watts of an engine exerting a constant {n1},000 N on a car moving at {n2} m/s?"],
     ans: function(n1, n2){return n1*n2*1000;},
     n1: [1,10], n2: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What is the force in newtons required to keep an object of mass {n1} kg moving at a velocity of {n2} m/s in a circle of radius {n3} meters?"],
     ans: function(n1, n2, n3){return n1 * n2 * n2 / n3;},
     n1: [1,10], n2: [1,10], n3: [1,10]
   },{
+    tags: ["mechanics"],
     strs: ["What is the moment of inertia of a thick cylindrical shell of mass {n3} kg with inner radius {n1} meters and outer radius {n2} meters?"],
     ans: function(n1, n2, n3){return n3 * (n1*n1 + n2*n2) / 2;},
     n1: [1,5], n2: [6,10], n3: [1,10]
-  },*/{
+  },{
+    tags: ["quadratics"],
     strs: ["Find the larger root of the quadratic {n1}x<sup>2</sup> + {n2}x + {n3}."],
     init: function(){
       var p1 = rand(-10,10,[0]),//r = p/q, (qx - p) = 0
@@ -93,17 +117,48 @@ var questions = [
         ans: Math.max(p1/q1, p2/q2)
       };
     },
+  },*/{
+    tags: ["trigfuncs"],
+    strs: ["Find the {func} of the angle {angle}."],
+    init: function(){
+      var funcs = ["sine", "cosine", "tangent", "secant", "cosecant", "cotangent"];
+      var funcsEval = [Math.sin, Math.cos, Math.tan, function(x){return 1/Math.cos(x);}, function(x){return 1/Math.sin(x);}, function(x){return 1/Math.tan(x);}];
+      var angleDegrees = 15 * Math.floor(Math.random() * 24);
+      var angle = "";
+      
+      if(Math.random() > 0.5){
+        angle = angleDegrees + "&deg;";
+      }else{
+        var frac = reduceFraction(angleDegrees, 180);
+        angle = frac[0] + "&pi;/" + frac[1];
+      }
+      
+      var funcIndex = Math.floor(Math.random() * 6);
+      
+      return {
+        func: funcs[funcIndex],
+        angle: angle,
+        ans: funcsEval[funcIndex](angleDegrees * Math.PI / 180)
+      };
+    },
   }/*,{
-    strs: ["?"],
-    ans: function(n1, n2){return 0;},
-    n1: [1,10], n2: [1,10]
-  }*//*,{
     strs: ["?"],
     ans: function(n1, n2){return 0;},
     n1: [1,10], n2: [1,10]
   }*/
 ];
 
+function gcd(a,b){
+  if(!b) return a;
+  return gcd(b, a%b);
+}
+function reduceFraction(f, q){//[p,q]
+  if(typeof f == "number")
+    f = [f, q];
+  
+  var g = gcd(f[0],f[1]);
+  return [f[0]/g, f[1]/g];
+}
 
 function sqrt(x){ //for eval
   return Math.sqrt(x);
@@ -178,7 +233,7 @@ function getParamNames(func) {
       done = true;
     }
     if(!done){
-      if(evaled == ANSWER){
+      if(typeof ANSWER == "number" && (ANSWER-evaled)/ANSWER < 0.01 || evaled == ANSWER){//within one percent error, or exact.
         alert(ansbox.value + " is CORRECT");
         Questioner.loadNext();
       }else{
