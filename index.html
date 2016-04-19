@@ -129,14 +129,21 @@ var questions = [
     init: function(){
       var funcs = ["sine", "cosine", "tangent", "secant", "cosecant", "cotangent"];
       var funcsEval = [Math.sin, Math.cos, Math.tan, function(x){return 1/Math.cos(x);}, function(x){return 1/Math.sin(x);}, function(x){return 1/Math.tan(x);}];
-      var angleDegrees = 15 * Math.floor(Math.random() * 24);
+      var angleDegrees = 15 * Math.floor(Math.random() * 49) - 360;
       var angle = "";
       
       if(Math.random() > 0.5){
         angle = angleDegrees + "&deg;";
       }else{
         var frac = reduceFraction(angleDegrees, 180);
-        angle = frac[0] + "&pi;/" + frac[1];
+        if(frac[0] == 0)
+          angle = 0;
+        else if(frac[0] == 1)
+          angle = "&pi;/" + frac[1];
+        else if(frac[0] == -1)
+          angle = "-&pi;/" + frac[1];
+        else
+          angle = frac[0] + "&pi;/" + frac[1];
       }
       
       var funcIndex = Math.floor(Math.random() * 6);
@@ -223,6 +230,8 @@ function reduceFraction(f, q){//[p,q]
     f = [f, q];
   
   var g = gcd(f[0],f[1]);
+  if(f[1]/g < 0)
+    g = -g;
   return [f[0]/g, f[1]/g];
 }
 
