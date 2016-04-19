@@ -1,6 +1,6 @@
 <h1 style="margin-bottom:0px">SciBowl Physics Calculation Practice</h1>
 <h2 id="filter" style="font-weight: normal;"></h2>
-<p style="font-size:0.8em;font-style:italic;">Always assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>.</p>
+<p style="font-size:0.8em;font-style:italic;">Always assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>. You may use the function <code style="font-style: normal;">sqrt()</code>, or the keyword <code style="font-style: normal;">infinity</code>.</p>
 
 <p id="qdisplay" style="margin-top: 1em;"></p>
 <form id="qanswerform" autocomplete="off"><input id="qanswer"><input type="submit" value="Submit"></form>
@@ -291,7 +291,10 @@ function getParamNames(func) {
     var done = false;
     try{
       evaled = (function(ANSWER, Questioner, window){
-        return eval(ansbox.value);
+        if(ansbox.value.toLowerCase()=="infinity")
+          return "infinity";
+        else
+          return eval(ansbox.value);
       })();
     }
     catch(e){
@@ -299,15 +302,17 @@ function getParamNames(func) {
       done = true;
     }
     if(!done){
-      if(typeof ANSWER == "number" && (ANSWER-evaled)/ANSWER < 0.01 || evaled == ANSWER){//within one percent error, or exact.
-        alert(ansbox.value + " is CORRECT");
+      if(typeof ANSWER == "number" && Math.abs((ANSWER-evaled)/ANSWER) < 0.00001  //Within 0.001% rounding error
+          || evaled == "infinity" && Math.abs(ANSWER) > 100000000000              //"Infinite"
+          || evaled == ANSWER){                                                   //Exact match
+        alert(ansbox.value + " is CORRECT ("+ANSWER+")");
+        ansbox.value = "";
         Questioner.loadNext();
       }else{
         alert(ansbox.value + " is INCORRECT");
       }
     }
     
-    ansbox.value = "";
     
     if(!e)var e=window.event;
     e.preventDefault();
