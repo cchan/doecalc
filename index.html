@@ -154,7 +154,13 @@ var questions = [
         ans: funcsEval[funcIndex](angleDegrees * Math.PI / 180)
       };
     },
+  },{
+    tags: ["relativity"],
+    strs: ["If two spaceships move in opposite directions at 0.{n1}c and 0.{n2}c in the rest frame, what is the relative velocity of one as measured from the other, as a multiple of c?"],
+    ans: function(n1, n2){return (n1 + n2) / 10 / (1 + n1 * n2 / 100);},
+    n1: [1,9], n2: [1,9]
   }/*,{
+    tags: [],
     strs: ["?"],
     ans: function(n1, n2){return 0;},
     n1: [1,10], n2: [1,10]
