@@ -159,6 +159,21 @@ var questions = [
     strs: ["If two spaceships move in opposite directions at 0.{n1}c and 0.{n2}c in the rest frame, what is the relative velocity of one as measured from the other, as a multiple of c?"],
     ans: function(n1, n2){return (n1 + n2) / 10 / (1 + n1 * n2 / 100);},
     n1: [1,9], n2: [1,9]
+  },{
+    tags: ["geometricoptics"],
+    strs: ["If an object is placed {o} centimeters in front of a converging lens of focal length {f}, what is the image distance with Cartesian sign convention?"],
+    ans: function(o, f){return 1/(1/f - 1/o);},
+    o: [1,10], f: [1,10]
+  },{
+    tags: ["geometricoptics"],
+    strs: ["How far in front of a converging lens of focal length {f} is an object if it produces an image {i} centimeters behind it?"],
+    ans: function(i, f){return 1/(1/f - 1/i);},
+    i: [1,10], f: [1,10]
+  },{
+    tags: ["geometricoptics"],
+    strs: ["What is the focal length of a lens if an object placed {o} centimeters in front of it produces an image {i} centimeters behind it?"],
+    ans: function(o, i){return 1/(1/i + 1/o);},
+    o: [1,10], i: [1,10]
   }/*,{
     tags: [],
     strs: ["?"],
