@@ -1,6 +1,6 @@
 <h1 style="margin-bottom:0px">SciBowl Physics Calculation Practice</h1>
 <h2 id="filter" style="font-weight: normal;"></h2>
-<p style="font-size:0.8em;font-style:italic;">Always assume frictionless and <i>g</i>=9.8m/s<sup>2</sup>. You may use the function <code style="font-style: normal;">sqrt()</code>, or the keyword <code style="font-style: normal;">infinity</code>.</p>
+<p style="font-size:0.8em;font-style:italic;">Always assume no friction or air resistance and <i>g</i>=9.8m/s<sup>2</sup>. You may use the function <code style="font-style: normal;">sqrt()</code>, or the keyword <code style="font-style: normal;">infinity</code>.</p>
 
 <p id="qdisplay" style="margin-top: 1em;"></p>
 <form id="qanswerform" autocomplete="off"><input id="qanswer"><input type="submit" value="Submit"></form>
@@ -16,13 +16,15 @@ var questions = [
   {
     tags: ["circuits"],
     strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in series?",
-      "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?"],
+      "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in parallel?",
+      "What is the total inductance in henries of a {n1} henry inductor and a {n2} henry inductor in parallel, but well separated?"],
     ans: function(n1, n2){return n1 * n2 / (n1 + n2);},
     n1: [1,10], n2: [1,10]
   },{
     tags: ["circuits"],
     strs: ["What is the total capacitance in farads of a {n1} farad capacitor and a {n2} farad capacitor in parallel?",
-      "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in series?"],
+      "What is the total resistance in ohms of a {n1} ohm resistor and a {n2} ohm resistor in series?",
+      "What is the total inductance in henries of a {n1} henry inductor and a {n2} henry inductor in series?"],
     ans: function(n1, n2){return n1 + n2;},
     n1: [1,10], n2: [1,10]
   },{
@@ -58,7 +60,7 @@ var questions = [
   },{
     tags: ["mechanics"],
     strs: ["What is the centripetal acceleration in meters per second squared of an object moving around a circle of radius {n2} meters at an angular velocity of {n1} radians per second?",
-      "What is the moment of inertia in kg*m^2 of a thin hoop of radius {n1} meters and total mass {n2} kg?"],
+      "What is the moment of inertia in kg&middot;m<sup>2</sup> of a thin hoop of radius {n1} meters and mass {n2} kg?"],
     ans: function(n1, n2){return n1 * n1 * n2;},
     n1: [1,10], n2: [1,10]
   },{
